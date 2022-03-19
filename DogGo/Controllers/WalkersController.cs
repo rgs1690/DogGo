@@ -1,4 +1,5 @@
 ﻿using DogGo.Models;
+using DogGo.Models.ViewModels;
 using DogGo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,23 @@ namespace DogGo.Controllers
     public class WalkersController : Controller
     {
     private readonly IWalkerRepository _walkerRepo;
+    private readonly IWalksRepository _walksRepo;
+    private readonly IDogRepository _dogRepo;
+    private readonly INeighborhoodRepository _neighborhoodRepo;
 
-    // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
-    public WalkersController(IWalkerRepository walkerRepository)
+
+        // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
+        public WalkersController(
+        IWalkerRepository walkerRepository,
+        IWalksRepository walksRepository,
+        IDogRepository dogRepository,
+        INeighborhoodRepository neighborhoodRepository)
+          
     {
-        _walkerRepo = walkerRepository;
+            _walkerRepo = walkerRepository;
+            _walksRepo = walksRepository;
+            _dogRepo = dogRepository;   
+            _neighborhoodRepo = neighborhoodRepository;
     }
 
         // GET: WalkersController
@@ -29,13 +42,28 @@ namespace DogGo.Controllers
         public ActionResult Details(int id)
         {
             Walker walker = _walkerRepo.GetWalkerById(id);
+            List<Walks> walks = _walksRepo.GetWalksByWalkerId(walker.Id);
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+            List<Dog> dogs = _dogRepo.GetAllDogs();
+            Dog dog = _dogRepo.GetDogById(id);
 
             if (walker == null)
             {
                 return NotFound();
             }
+            WalkerProfileViewModel vm = new WalkerProfileViewModel()
+            {
+                Walker = walker,
+                Walks = walks,
+               Neightborhoods = neighborhoods,
+               Dogs = dogs
 
-            return View(walker);
+               
+               
+            };
+
+            return View(vm);
+           
         }
 
         // GET: WalkersController/Create
