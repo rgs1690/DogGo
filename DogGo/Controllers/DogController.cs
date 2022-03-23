@@ -1,6 +1,7 @@
 ﻿using DogGo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DogGo.Controllers
 {
@@ -14,11 +15,14 @@ namespace DogGo.Controllers
                 _dogRepo = dogRepository;
             }
 
-            // GET: DogController
-            public ActionResult Index()
+        // GET: DogController
+        public ActionResult Index()
         {
-            List<Dog> dogs = _dogRepo.GetAllDogs();
-            return View();
+            int ownerId = GetCurrentUserId();
+
+            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(ownerId);
+
+            return View(dogs);
         }
 
         // GET: DogController/Details/5
@@ -104,5 +108,11 @@ namespace DogGo.Controllers
                 return View(dog);
             }
         }
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
+        }
+
     }
 }
