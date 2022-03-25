@@ -1,4 +1,5 @@
-﻿using DogGo.Repositories;
+﻿using DogGo.Models;
+using DogGo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -17,12 +18,12 @@ namespace DogGo.Controllers
 
         // GET: DogController
         public ActionResult Index()
-        {
+        {    
             int ownerId = GetCurrentUserId();
 
             List<Dog> dogs = _dogRepo.GetDogsByOwnerId(ownerId);
-
-            return View(dogs);
+                return View(dogs);
+         
         }
 
         // GET: DogController/Details/5
