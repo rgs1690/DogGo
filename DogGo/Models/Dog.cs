@@ -1,4 +1,4 @@
-﻿namespace DogGo
+﻿namespace DogGo.Models
 {
     public class Dog
     {

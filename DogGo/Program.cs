@@ -15,33 +15,33 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 var app = builder.Build();
 
-void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
-    app.UseHttpsRedirection();
-    app.UseStaticFiles();
+//void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+//{
+//    if (env.IsDevelopment())
+//    {
+//        app.UseDeveloperExceptionPage();
+//    }
+//    else
+//    {
+//        app.UseExceptionHandler("/Home/Error");
+//        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//        app.UseHsts();
+//    }
+//    app.UseHttpsRedirection();
+//    app.UseStaticFiles();
 
-    app.UseRouting();
+//    app.UseRouting();
 
-    app.UseAuthentication();
-    app.UseAuthorization();
+//    app.UseAuthentication();
+//    app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-    });
-}
+//    app.UseEndpoints(endpoints =>
+//    {
+//        endpoints.MapControllerRoute(
+//            name: "default",
+//            pattern: "{controller=Home}/{action=Index}/{id?}");
+//    });
+//}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -57,7 +57,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

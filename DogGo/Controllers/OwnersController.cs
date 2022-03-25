@@ -137,6 +137,7 @@ public ActionResult Create(Owner owner)
                 return View(owner);
             }
         }
+        //LOGIN
         public ActionResult Login()
         {
             return View();
@@ -166,7 +167,7 @@ public ActionResult Create(Owner owner)
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
 
-            return RedirectToAction("Index", "Dogs");
+            return RedirectToAction("Index", "Dog");
         }
 
         public async Task<ActionResult> Logout()

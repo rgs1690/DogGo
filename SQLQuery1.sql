@@ -1,2 +1,2 @@
 ﻿SELECT * 
-FROM Owner
+FROM Owner;
