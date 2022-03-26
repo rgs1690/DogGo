@@ -39,7 +39,7 @@ namespace DogGo.Controllers
         {   List<Walker> allWalkers = _walkerRepo.GetAllWalkers();
             int userId = GetCurrentUserId();
             Owner owner =_ownerRepo.GetOwnerById(userId);
-            if (owner  != null)
+            if (userId == 0)
             {
 
             List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(owner.NeighborhoodId);
